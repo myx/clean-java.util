@@ -1,0 +1,8 @@
+Type: ae3.Package
+Name: clean-java.util
+Title: Clean: myx's java.util basic class implementations
+Provides:	\
+	clean-java.util \
+	source-process:compile-java \
+	source-process:ae3-packages \
+
