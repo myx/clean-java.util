@@ -4,33 +4,44 @@ import java.util.Comparator;
 
 /** @author myx */
 public class ComparatorSoftwareVersion implements Comparator<Object> {
-
+	
 	/**
 	 *
 	 */
 	public static final ComparatorSoftwareVersion INSTANCE = new ComparatorSoftwareVersion();
+	
+	/** @param o1
+	 * @param o2
+	 * @return */
+	public static final int compareStatic(final Object o1, final Object o2) {
+		
+		if (o1 == o2) {
+			return 0;
+		}
+		return ComparatorSoftwareVersion.INSTANCE.compare(o1, o2);
+	}
 
 	@Override
 	public int compare(final Object o1, final Object o2) {
-
+		
 		if (o1 == null) {
 			return o2 == null
 				? 0
 				: -1;
 		}
-
+		
 		final CharSequence s1 = o1 instanceof CharSequence
 			? (CharSequence) o1
 			: o1.toString();
 		final CharSequence s2 = o2 instanceof CharSequence
 			? (CharSequence) o2
 			: o2.toString();
-
+		
 		final int l1 = s1.length();
 		final int l2 = s2.length();
-
+		
 		final int limit = Math.min(l1, l2);
-
+		
 		/** equals yet */
 		int start = 0, i = 0;
 		boolean digits = true;
@@ -88,7 +99,7 @@ public class ComparatorSoftwareVersion implements Comparator<Object> {
 					continue;
 			}
 		}
-
+		
 		/** check difference */
 		String v1;
 		v1 : for (int j = i;;) {
@@ -121,7 +132,7 @@ public class ComparatorSoftwareVersion implements Comparator<Object> {
 					continue v1;
 			}
 		}
-
+		
 		String v2;
 		v2 : for (int j = i;;) {
 			if (j == l2) {
@@ -153,7 +164,7 @@ public class ComparatorSoftwareVersion implements Comparator<Object> {
 					continue v2;
 			}
 		}
-		
+
 		if (digits) {
 			final int i1 = Integer.parseInt(v1);
 			final int i2 = Integer.parseInt(v2);
@@ -163,8 +174,8 @@ public class ComparatorSoftwareVersion implements Comparator<Object> {
 					? -1
 					: 1;
 		}
-
+		
 		return v1.compareTo(v2);
 	}
-
+	
 }
